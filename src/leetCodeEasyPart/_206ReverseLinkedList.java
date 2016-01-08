@@ -2,7 +2,7 @@
 
 package leetCodeEasyPart;
 
-public class _z206ReverseLinkedList {
+public class _206ReverseLinkedList {
 	
     public ListNode reverseList(ListNode head) {
     	
