@@ -20,27 +20,25 @@ Could you do better than O(n2), where n is the number of words?*/
 
 package leetCodeMediumPart;
 
-public class __318MaximumProductOfWordLengths {
+public class _318MaximumProductOfWordLengths {
 	
     public int maxProduct(String[] words) {
-        int len = words.length;
-        int ret = 0;
-        for(int i = 0; i < len; i++) {
-        	for(int j = i + 1; j < len; j++) {
-        		int flag = 1;
-        		int l = words[i].length();
-        		for(int k = 0; k < l; k++) {
-        			if(words[j].contains(String.valueOf(words[i].charAt(k)))) {
-        				flag = -1;
-        				break;
-        			}
-        		}
-        		if(flag > 0 && words[i].length() * words[j].length() > ret) {
-        			ret = words[i].length() * words[j].length();
-        		}
-        	}
-        }
-        return ret;
+    	int max = 0;
+    	int len = words.length;
+    	int[] temp = new int[len];
+    	for(int i = 0; i < len; i++) {
+    		for(int j = 0; j < words[i].length(); j++) {
+    			temp[i] |= 1 << (words[i].charAt(j) - 'a');
+    		}
+    	}
+    	for(int i = 0; i < len; i++) {
+    		for(int j = i + 1; j < len; j++) {
+    			if((temp[i] & temp[j]) == 0) {
+    				max = Math.max(max, words[i].length() * words[j].length());
+    			}
+    		}
+    	}
+    	return max;
     }
 
 	public static void main(String[] args) {
