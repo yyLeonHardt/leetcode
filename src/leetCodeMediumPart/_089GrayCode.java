@@ -20,7 +20,7 @@ package leetCodeMediumPart;
 import java.util.ArrayList;
 import java.util.List;
 
-public class __089GrayCode {
+public class _089GrayCode {
 
     public List<Integer> grayCode1(int n) {
     	List<Integer> ret = new ArrayList<Integer>();
