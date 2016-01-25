@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class __216CombinationSumIII {
+public class _216CombinationSumIII {
 	
     public static List<List<Integer>> combinationSum3(int k, int n) {
     	List<List<Integer>> ret = new ArrayList<List<Integer>>();
