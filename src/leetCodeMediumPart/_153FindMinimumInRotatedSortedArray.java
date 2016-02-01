@@ -8,7 +8,7 @@ You may assume no duplicate exists in the array.*/
 
 package leetCodeMediumPart;
 
-public class __153FindMinimumInRotatedSortedArray {
+public class _153FindMinimumInRotatedSortedArray {
 	
     public int findMin(int[] nums) {
     	int min = Integer.MAX_VALUE;

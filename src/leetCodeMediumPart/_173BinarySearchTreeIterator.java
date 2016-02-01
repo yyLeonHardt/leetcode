@@ -8,7 +8,7 @@ package leetCodeMediumPart;
 
 import java.util.Stack;
 
-public class __173BinarySearchTreeIterator {
+public class _173BinarySearchTreeIterator {
 	
 	/**
 	 * Definition for binary tree
@@ -24,6 +24,9 @@ public class __173BinarySearchTreeIterator {
 		
     	Stack<TreeNode> stack = new Stack<TreeNode>();
     	
+    	//To initialize it iterator, store each left node from the root 
+    	//to bottom, where the leaf is in the top of the stack and root
+    	//is on the bottom.
 	    public BSTIterator(TreeNode root) {
 	    	if(root == null) {
 	    		return;
@@ -38,22 +41,27 @@ public class __173BinarySearchTreeIterator {
 	    }
 
 	    /** @return whether we have a next smallest number */
+	    //if the stack is empty, then there is no next node, otherwise
+	    //there should have node for next.
 	    public boolean hasNext() {
 	        return !stack.isEmpty();
 	    }
 
 	    /** @return the next smallest number */
+	    //Each time return the top node value of stack, and check whether 
+	    //top node has right node, if it dose, then check if the right node
+	    //has left node and put them into stack with the order that value of
+	    //nodes become smaller from bottom to top.
 	    public int next() {
 	    	TreeNode ret = stack.pop();
 	    	TreeNode temp;
 	    	if(ret.right != null) {
 	    		stack.push(ret.right);
-	    	}
-	    	
-    		temp = stack.peek();
-	    	while(temp.left != null) {
-	    		stack.push(temp.left);
 	    		temp = stack.peek();
+		    	while(temp.left != null) {
+		    		stack.push(temp.left);
+		    		temp = stack.peek();
+		    	}
 	    	}
 	    	return ret.val;
 	    }

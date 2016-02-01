@@ -4,7 +4,7 @@ Input is guaranteed to be within the range from 1 to 3999.*/
 
 package leetCodeMediumPart;
 
-public class __012IntegerToRoman {
+public class _012IntegerToRoman {
 
 //    Method¡¡1:	
 //    public static String intToRoman(int num) {

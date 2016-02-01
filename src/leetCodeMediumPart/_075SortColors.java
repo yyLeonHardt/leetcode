@@ -7,7 +7,7 @@ You are not suppose to use the library's sort function for this problem.*/
 
 package leetCodeMediumPart;
 
-public class __075SortColors {
+public class _075SortColors {
 	
     public void sortColors(int[] nums) {
     	if(nums.length == 0 || nums == null)
