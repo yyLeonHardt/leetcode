@@ -53,6 +53,12 @@ public class _284PeekingIterator {
 		public boolean hasNext() {
 		    return (next != null);
 		}
+
+		@Override
+		public void remove() {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 	public static void main(String[] args) {
