@@ -7,10 +7,12 @@ package leetCodeEasyPart;
 
 public class _292NimGame {
 	
-    public static boolean canWinNim(int n) {
-    	if(n % 4 == 0)
-            return false;
-        return true;
+	// When the number of stone n can be divided by 4, you will never
+	// win, otherwise you can win definitely.
+	// O(1) in time
+	// O(1) in space
+    public boolean canWinNim(int n) {
+        return !(n % 4 == 0);
     }
 
 	public static void main(String[] args) {
