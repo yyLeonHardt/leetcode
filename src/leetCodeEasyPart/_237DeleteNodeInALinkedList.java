@@ -8,6 +8,9 @@ package leetCodeEasyPart;
 
 public class _237DeleteNodeInALinkedList {
 	
+	// Use next node to replace the current node.
+	// O(1) in time
+	// O(1) in space
     public void deleteNode(ListNode node) {
     	
         if(node != null && node.next != null) {
