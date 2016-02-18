@@ -8,41 +8,48 @@ package leetCodeEasyPart;
 
 public class _283MoveZero {
 	
-	public void moveZeroes(int[] nums) {
-		
+	// For every 0 element in the array, leave it along, and use a
+	// mark to store non-zero index, when it meets non-zero element,
+	// put it into the index place of the array and index++. Finally,
+	// set all element after index as 0;
+	// O(n) in time (O(n + m) actually, where m is the number of zero 
+	// element)
+	// O(1) in space
+	public void moveZeroes1(int[] nums) {
+		int len = nums.length;
+		int cnt = 0;
+		for(int i = 0; i < len; i++) {
+			if(nums[i] != 0) {
+				nums[cnt++] = nums[i];
+			}
+		}
+		for(int i = cnt; i < len; i++) {
+			nums[i] = 0;
+		}
+    }
+	
+	// Define a variable as a mark to store the index where the last 
+	// non-zero element meets in the loop, and swap this element once
+	// the loop meet the non-zero element.
+    public void moveZeroes2(int[] nums) {
         int len = nums.length;
-		if(nums == null || len == 0)
-			return;
-        
-		int zeroNum = 0;
-        
+        int cnt = 0;
         for(int i = 0; i < len; i++) {
-        	if(nums[i] == 0) {
-        		zeroNum++;
-        		continue;
-        	}
-        	if(zeroNum != 0) {
-        		nums[i - zeroNum] = nums[i];
-        	}        	
+            if(nums[i] != 0) {
+                swap(nums, i, cnt++);
+            }
         }
-        
-        if(zeroNum != 0) {
-        	for(int i = len - zeroNum; i < len; i++) {
-        		nums[i] = 0;
-        	}
-        }
-        
-        for(int i = 0; i < len; i++) {
-        	System.out.print(nums[i] + " ");
-        }
+    }
+    
+    public void swap(int[] nums, int index1, int index2) {
+        int temp;
+        temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
     }
 	
 
 	public static void main(String[] args) {
-		
-		int[] input = {1};
-		_283MoveZero z = new _283MoveZero();
-		z.moveZeroes(input);
 
 	}
 
