@@ -20,34 +20,123 @@ import java.util.Scanner;
 
 public class _242ValidAnagram {
 	
-	public boolean isAnagram(String s, String t) {
+    // Method 1:
+    // O(n) in time
+    // O(1) in space
+    // 5ms - 84.75%
+    public boolean isAnagram1(String s, String t) {
+        if(s == null && t == null) {
+            return true;
+        }else if(s != null && t != null) {
+            int len = s.length();
+            if(len != t.length()) {
+                return false;
+            }
+            int[] mark = new int[26];
+            char[] sChar = s.toCharArray();
+            char[] tChar = t.toCharArray();
+            for(char c : sChar) {
+                mark[c - 'a']++;
+            }
+            for(char c : tChar) {
+                if(mark[c - 'a'] > 0) {
+                    mark[c - 'a']--;
+                }else {
+                    return false;
+                }
+            }
+            return true;
+        }else {
+            return false;
+        }
+    }
 		
-//Method 1:        
-//		int len = s.length();
-//		if(t.length() != len) 
-//			return false;
-//		if(len == 0) 
-//			return true;
-//		int temp[] = new int[26];
-//		
-//		for(int i = 0; i < len; i++)
-//			temp[s.charAt(i) - 'a']++;
-//		for(int i = 0; i < len; i++)
-//			temp[t.charAt(i) - 'a']--;
-//		for(int i = 0; i < 26; i++)
-//			if(temp[i] != 0)
-//				return false;
-//		
-//		return true;
-
-//Method 2:
-		char[] sChars = s.toCharArray();
-		char[] tChars = t.toCharArray();
-		Arrays.sort(sChars);
-		Arrays.sort(tChars);
-		return Arrays.equals(sChars, tChars);
+    // Method 2:
+    // O(nlog(n)) in time
+    // O(1) in space
+    // 8ms - 46.36%
+	public boolean isAnagram2(String s, String t) {
+		
+        if(s == null && t == null) {
+            return true;
+        }else if(s != null && t != null) {
+            char[] sChars = s.toCharArray();
+            char[] tChars = t.toCharArray();
+            Arrays.sort(sChars);
+            Arrays.sort(tChars);
+            if(Arrays.equals(sChars, tChars)) {
+                return true;
+            }else {
+                return false;
+            }
+        }else {
+            return false;
+        }
 		
     }
+
+	
+	// Old Version of Method 1 - v1.1:
+	// O(n) in time
+	// O(1) in space
+	// 7ms - 59.12%
+//    public boolean isAnagram1(String s, String t) {
+//        if(s == null && t == null) {
+//            return true;
+//        }else if(s != null && t != null) {
+//            int len = s.length();
+//            if(len != t.length()) {
+//                return false;
+//            }
+//            int[] mark = new int[26];
+//            for(int i = 0; i < len; i++) {
+//                mark[s.charAt(i) - 'a']++;
+//            }
+//            for(int i = 0; i < len; i++) {
+//                char temp = t.charAt(i);
+//                if(mark[temp - 'a'] > 0) {
+//                    mark[temp - 'a']--;
+//                }else {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        }else {
+//            return false;
+//        }
+//    }
+    
+	// Old Version of Method 1 - v1.0:
+	// O(n) in time
+	// O(1) in space
+	// 8ms - 46.36%
+//    public boolean isAnagram1(String s, String t) {
+//        if(s == null && t == null) {
+//            return true;
+//        }else if(s != null && t != null) {
+//            int len = s.length();
+//            if(len != t.length()) {
+//                return false;
+//            }
+//            int[] mark = new int[26];
+//            for(int i = 0; i < len; i++) {
+//                mark[s.charAt(i) - 'a']++;
+//                mark[t.charAt(i) - 'a']--;
+//            }
+//            for(int i = 0; i < 26; i++) {
+//                if(mark[i] != 0) {
+//                    return false;
+//                }
+//            }
+//        }else {
+//        	return false;
+//        }
+//        return true;
+//    }
+    
+
+    
+
 
 	public static void main(String[] args) {
 		
@@ -57,7 +146,7 @@ public class _242ValidAnagram {
 		input.close();
 		
 		_242ValidAnagram z = new _242ValidAnagram();
-		boolean flag = z.isAnagram(s, t);
+		boolean flag = z.isAnagram1(s, t);
 		System.out.println(flag);
 	}
 
