@@ -6,54 +6,49 @@
 
 package leetCodeEasyPart;
 
+import java.util.Arrays;
+
 public class _169MajorityElement {
-	
-    public int majorityElement(int[] nums) {
 
-//Method 1:    	
-//    	int temp = 0;
-//    	int count = 0;
-//    	Arrays.sort(nums);
-//    	for(int i = 0; i < nums.length; i++){
-//    		if(nums[i] == temp)
-//    			count++;
-//    		else {
-//    			count = 1;
-//    			temp = nums[i];
-//    		}
-//    		if(count > nums.length / 2)
-//    			break;
-//    	}
-//    	
-//    	return temp;
-    	
-//Method 2:
-//    	Arrays.sort(nums);
-//    	return nums[nums.length / 2];
-
-//Method 3:
-    	int major = 0;
-    	int count = 0;
-    	for(int i = 0; i < nums.length; i++) {
-    		if(count == 0) {
-    			major = nums[i];
-    			count++;
-    		}else {
-    			if(major == nums[i]) 
-    				count++;
-    			else
-    				count--;
-    		}
-    	}
-    	
-    	return major;
+    // Method 1(sort):
+    // O(nlog(n)) in time
+    // O(1) in space
+    // 3ms - 38.60%
+	public int majorityElement1(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length / 2];
     }
+	
+	
+	// Method 2:
+	// Count the number of element.
+	// O(n) in time
+	// O(1) in space
+	// 2ms - 60.87%
+    public int majorityElement2(int[] nums) {
+        int major = nums[0];
+        int cnt = 0;
+        for(int num : nums) {
+            if(cnt == 0) {
+                major = num;
+                cnt++;
+            }else {
+                if(num != major) {
+                    cnt--;
+                }else {
+                    cnt++;
+                }
+            }
+        }
+        return major;
+    }
+	
 
 	public static void main(String[] args) {
 		
 		int[] data = {1,2,3,4,5,62,2,2,2,4,2,2,2,2,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5};
 		_169MajorityElement z = new _169MajorityElement();
-		z.majorityElement(data);
+		z.majorityElement1(data);
 		
 	}
 
