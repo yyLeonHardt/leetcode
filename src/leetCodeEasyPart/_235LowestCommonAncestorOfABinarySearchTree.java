@@ -17,23 +17,39 @@ package leetCodeEasyPart;
 
 public class _235LowestCommonAncestorOfABinarySearchTree {
 	
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        
-//    	if(root.val > p.val && root.val > q.val)
-//    		return lowestCommonAncestor(root.left, p, q);
-//    	else if(root.val < p.val && root.val < q.val)
-//    		return lowestCommonAncestor(root.right, p, q);
-//    	else 
-//    		return root;
-    	
-    	while((root.val - p.val) * (root.val - q.val) > 0) {
-    		if(root.val > p.val)
-    			root = root.left;
-    		else
-    			root = root.right;
-    	}
-    	return root;
-    	
+	// Method 1(Recursively):
+	// O(h) in time where h is the height of the tree
+	// O(h) in space where h is the height of the tree
+	// 10ms - 2 - 47.57%
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null) {
+            return root;
+        }        
+        if(p.val > root.val && q.val > root.val) {
+            return lowestCommonAncestor1(root.right, p, q);
+        }else if(p.val < root.val && q.val < root.val) {
+            return lowestCommonAncestor1(root.left, p, q);
+        }else {
+            return root;
+        }
+    }
+	
+    
+    // Method 2(Iteratively):
+    // O(h) in time where h is the height of the tree
+    // O(1) in space
+    // 10ms - 2 - 47.57%
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        while(root != null) {
+            if(p.val > root.val && q.val > root.val) {
+                root = root.right;
+            }else if(p.val < root.val && q.val < root.val) {
+                root = root.left;
+            }else {
+                return root;
+            }
+        }
+        return root;
     }
 
 	public static void main(String[] args) {
