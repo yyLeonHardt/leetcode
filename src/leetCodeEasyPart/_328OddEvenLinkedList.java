@@ -14,21 +14,30 @@ package leetCodeEasyPart;
 
 public class _328OddEvenLinkedList {
 	
+	// O(n) in time
+	// O(1) in space
+	// 1ms - 2 - 5.79%
     public ListNode oddEvenList(ListNode head) {
-    	if(head == null) {
-    		return null;
-    	}
-    	ListNode odd = head;
-    	ListNode even = head.next;
-    	ListNode evenHead = even;
-    	while(even != null && even.next != null) {
-    		odd.next = odd.next.next;
-    		even.next = even.next.next;
-    		odd = odd.next;
-    		even = even.next;
-    	}
-    	odd.next = evenHead;
-    	return head;
+        if(head == null || head.next == null) {
+            return head;
+        }
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHead = even;
+        while(even.next != null) {
+            odd.next = even.next;
+            odd = odd.next;
+            if(odd.next != null) {
+                even.next = odd.next;
+                even = even.next;
+            }else {
+                even.next = null; // Very important, preventing from infinite loop.
+                break;
+            }
+        }
+        odd.next = evenHead;
+        return head;
+
     }
 
 	public static void main(String[] args) {

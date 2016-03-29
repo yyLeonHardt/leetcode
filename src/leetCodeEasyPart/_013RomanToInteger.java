@@ -87,7 +87,7 @@ public class _013RomanToInteger {
 
 	public static void main(String[] args) {
 		_013RomanToInteger r = new _013RomanToInteger();
-		System.out.println(r.romanToInt("MDCCCLXXXIV"));
+		System.out.println(r.romanToInt1("MDCCCLXXXIV"));
 	}
 
 }
