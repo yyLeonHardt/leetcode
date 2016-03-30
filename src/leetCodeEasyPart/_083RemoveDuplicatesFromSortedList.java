@@ -10,26 +10,43 @@ package leetCodeEasyPart;
 
 public class _083RemoveDuplicatesFromSortedList {
 	
-    public ListNode deleteDuplicates(ListNode head) {
-
-//Method 1:
-//    	ListNode temp = head;
-//    	while(temp != null) {
-//    		if(temp.next == null)
-//    			return head;
-//    		if(temp.next.val == temp.val)
-//    			temp.next = temp.next.next;
-//    		else
-//    			temp = temp.next;
-//    	}
-//    	
-//    	
-//    	return head;
+	// Method 1:
+	// Recursively
+	// O(n) in time
+	// O(n) in space
+	// 1ms - 1 - 25.39%
+    public ListNode deleteDuplicates1(ListNode head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        while(head.val == head.next.val) {
+            head = head.next;
+            if(head.next == null) {
+                return head;
+            }
+        }
+        head.next = deleteDuplicates1(head.next);
+        return head;
+    }
     
-//Method 2:
-    	if(head == null || head.next == null)return head;
-        head.next = deleteDuplicates(head.next);
-        return head.val == head.next.val ? head.next : head;
+    // Method 2:
+    // Iteratively
+    // O(n) in time
+    // O(1) in space
+	// 1ms - 1 - 25.39%
+    public ListNode deleteDuplicates2(ListNode head) {
+        ListNode cur = head;
+        while(cur != null) {
+            if(cur.next == null) {
+                return head;
+            }
+            if(cur.next.val == cur.val) {
+                cur.next = cur.next.next;
+            }else {
+                cur = cur.next;
+            }
+        }
+        return head;        
     }
 
 	public static void main(String[] args) {

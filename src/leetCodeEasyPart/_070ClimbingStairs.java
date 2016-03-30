@@ -1,32 +1,63 @@
+/*You are climbing a stair case. It takes n steps to reach to the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?*/
+
 package leetCodeEasyPart;
 
 import java.util.Scanner;
 
 public class _070ClimbingStairs {
 	
-	public int climbStairs(int i){
-
-//Method 1:
-//		int f0 = 0, f1 = 1;
-//	    for(int n = 1; n <= i; n++) {
-//	            f1 += f0;       // assign sum of f0 and f1 to f1 
-//	            f0 = f1 - f0;   // assign previous f1 to f0
-//	    }
-//	    return f1;
-		
-//Method 2:
-		if(i == 0)
-			return 0;
-		if(i == 1)
-			return 1;
-		int[] ways = new int[i];
-		ways[0] = 1;
-		ways [1] = 2;
-		for(int j = 2; j < i; j++)
-			ways[j] = ways[j - 1] + ways[j - 2];
-		
-		return ways[i - 1];
-        
+	// Method 1:
+	// Recursively
+	// O(n) in time
+	// O(n) in space
+	// Time Limited Exceeded when n > 42
+    public int climbStairs1(int n) {
+        if(n == 0) {
+            return 0;
+        }
+        if(n == 1) {
+            return 1;
+        }
+        if(n == 2) {
+            return 2;
+        }
+        return climbStairs(n - 1) + climbStairs(n - 2);
+    }
+    
+    // Method 2:
+    // Iteratively
+    // O(n) in time
+    // O(n) in space
+    // 0ms - 1 - 13.04%
+    public int climbStairs2(int n) {
+        int[] ways = new int[n + 1];
+        if(n <= 2) {
+            return n;
+        }
+        ways[0] = 0;
+        ways[1] = 1;
+        ways[2] = 2;
+        for(int i = 3; i <= n; i++) {
+            ways[i] = ways[i - 1] + ways[i - 2];
+        }
+        return ways[n];
+    }
+	
+    // Method 3:
+    // Iteratively
+    // O(n) in time
+    // O(1) in space
+    // 0ms - 1 - 13.04%
+    public int climbStairs(int n) {
+        int f0 = 0;
+        int f1 = 1;
+        for(int i = 1; i <= n; i++) {
+            f1 = f1 + f0;
+            f0 = f1 - f0;
+        }
+        return f1;
     }
 
 	public static void main(String[] args) {
@@ -35,7 +66,7 @@ public class _070ClimbingStairs {
 		input.close();
 		
 		_070ClimbingStairs c = new _070ClimbingStairs();
-		int ways = c.climbStairs(i);
+		int ways = c.climbStairs1(i);
 		System.out.println(ways);
 		
 	}
