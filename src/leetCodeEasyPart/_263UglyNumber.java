@@ -14,26 +14,43 @@ import java.util.Scanner;
 
 public class _263UglyNumber {
 	
-	public boolean isUgly(int num) {
-		
-//		if(num == 0){
-//			return false;
-//		}
-		if(num <= 0) return false; //Consider all numbers not only positive numbers. 
-		   
-	    while(num % 2 == 0) 
-	    	num /= 2;
-	    while(num % 3 == 0) 
-	    	num /= 3;
-	    while(num % 5 == 0) 
-	    	num /= 5;
-	    
-//	    if(num == 1) {
-//	    	return true;
-//	    }
-//		return false;
-	    return num == 1; //More concise.
-	}
+	// Method 1:
+	// Recursively
+	// 3ms - 2 - 3.17%
+    public boolean isUgly(int num) {
+        if(num <= 0) {
+            return false;
+        }
+        if(num % 2 == 0) {
+            return isUgly(num / 2);
+        }
+        if(num % 3 == 0) {
+            return isUgly(num / 3);
+        }
+        if(num % 5 == 0) {
+            return isUgly(num / 5);
+        }
+        return num == 1;
+    }
+	
+	// Method 2:
+	// Iteratively
+	// 2ms - 1 - 17.06%
+    public boolean isUgly1(int num) {
+        if(num <= 0) {
+            return false;
+        } // Consider all numbers not only positive numbers. 
+        while(num % 2 == 0) {
+            num /= 2;
+        }
+        while(num % 3 == 0) {
+            num /= 3;
+        }
+        while(num % 5 == 0) {
+            num /= 5;
+        }
+        return num == 1;
+    }
 
 	public static void main(String[] args) {
 		
@@ -42,7 +59,7 @@ public class _263UglyNumber {
 		int num = input.nextInt();
 		input.close();
 		_263UglyNumber u = new _263UglyNumber();
-		boolean output = u.isUgly(num);
+		boolean output = u.isUgly1(num);
 		System.out.println(output);
 	}
 

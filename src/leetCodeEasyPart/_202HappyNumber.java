@@ -20,58 +20,81 @@ import java.util.Set;
 
 public class _202HappyNumber {
 	
-	public boolean isHappy(int n) {
-		
-//Method 1: Hash set cannot add same element twice, use this characteristic to judge loop.
-//		Set<Integer> resultSet = new HashSet<Integer>();
-//		int sum;
-//		int mod;
-//		while(resultSet.add(n)) {
-//			sum = 0;
-//			while(n > 0) {
-//				mod = n % 10;
-//				n /= 10;
-//				sum += mod * mod;
-//			}		
-//			if(sum == 1)
-//				return true;
-//			n = sum;
-//		}
-//        		
-//		return false;
-		
-//Method 2: Let one goes calculation once every time, and the other goes twice, if there is a loop, they will get same value finally.
-		int fast = n;
-		int slow = n;
-		while(true) {
-			slow = cal(fast);
-			fast = cal(cal(slow));
-			System.out.print("fast = " + fast + " ");
-			System.out.print("slow = " + slow);
-			System.out.println(" ");
-			if(fast == 1)
-				return true;
-
-			if(slow == 1)
-				return true;
-
-			if(fast == slow)
-				return false;
-		}
-	
+	// Method 1:
+	// Hash set cannot add same element twice, use this characteristic to judge loop.
+	// 6ms - 6 - 26.98%
+    public boolean isHappy1(int n) {
+        Set<Integer> set = new HashSet<Integer>();
+        while(set.add(n)) {
+            int sum = 0;            
+            int mod = 0;
+            while(n != 0) {
+                mod = n % 10;
+                sum += mod * mod;
+                n /= 10;
+            }
+            if(sum == 1) {
+                return true;
+            }
+            n = sum;
+        }
+        return false;
     }
-	
-	public int cal(int input) {
-		int n = input;
-		int mod;
-		int sum = 0;
-		while(n > 0) {
-			mod = n % 10;
-			sum += mod * mod;
-			n /= 10;
-		}
-		return sum;
-	}
+    
+    // Method 2:
+    // Let one goes calculation once every time, and the other goes twice, 
+    // if there is a loop, they will get same value finally.
+    // 2ms - 2 - 84.07%
+    public boolean isHappy2(int n) {
+        int fast = n;
+        int slow = n;
+        while(true) {
+            fast = cal(cal(fast));
+            slow = cal(slow);
+            if(fast == 1 || slow == 1) {
+                return true;
+            }
+            if(fast == slow) {
+                return false;
+            }
+        }
+    }
+    
+    // Method 3:
+    // Recusively
+    // 1ms - 1 - 99.17%
+    public boolean isHappy3(int n) {
+        if(n < 10) {
+            if(n == 1 || n == 7) {
+                return true;
+            }else {
+                return false;
+            }
+        }else {
+            return isHappy3(cal(n));
+        }
+    }
+    
+    // Method 4:
+    // Iteratively
+    // 2ms - 2 - 84.07%
+    public boolean isHappy4(int n) {
+        while(n >= 10) {
+            n = cal(n);
+        }
+        return n == 1 || n == 7;
+    }
+    
+    public int cal(int n) {
+        int sum = 0;
+        int mod = 0;
+        while(n != 0) {
+            mod = n % 10;
+            sum += mod * mod;
+            n /= 10;
+        }
+        return sum;
+    }
 
 	public static void main(String[] args) {
 		
@@ -79,7 +102,7 @@ public class _202HappyNumber {
 		int n = input.nextInt();
 		input.close();
 		_202HappyNumber z = new _202HappyNumber();
-		System.out.println(z.isHappy(n));
+		System.out.println(z.isHappy1(n));
 
 	}
 
